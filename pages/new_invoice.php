@@ -64,7 +64,7 @@ elseif($param[1] == "item_info")
 		<td></td>
 		<td><input type="hidden" name="item_id[]" value="<?= $items['id'] ?>" /><input type="text" name="amount[]" value="1" /></td>
 		<td><?= $items['name']; ?></td>
-		<td><?= nl2br($items['description']); ?></td>
+		<td><textarea name="description[]" rows="2" cols="35"><?= nl2br($items['description']); ?></textarea></td>
 		<td><?= $items['cost']; ?>€ <input type="hidden" name="cost[]" value="<?=$items['cost']; ?>" /></td>
 		<td><?= $items['cost']; ?>€</td>
 	</tr>
@@ -72,7 +72,7 @@ elseif($param[1] == "item_info")
 }
 elseif($param[1] == "submit")
 {
-	if(invoice::insert_invoice($_POST['client'], $_POST['item_id'], $_POST['amount']) === true)
+	if(invoice::insert_invoice($_POST['client'], $_POST['item_id'], $_POST['amount'], $_POST['description') === true)
 	{
 		echo "Rechnung erfolgreich gespeichert!";
 	}

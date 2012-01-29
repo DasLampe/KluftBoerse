@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------+
 class invoice
 {
-	public static function insert_invoice($client_id, array $item_id, array $amount)
+	public static function insert_invoice($client_id, array $item_id, array $amount, array $description)
 	{
 		$db		= ImpeesaDb::getConnection();
 
@@ -21,15 +21,16 @@ class invoice
 		$invoice_id	= $db->lastInsertId();
 
 		$insert = $db->prepare("INSERT INTO invoice_item
-							(invoice_id, item_id, amount)
+							(invoice_id, item_id, amount, description)
 							VALUES
-							(:invoice_id, :item_id, :amount)");
+							(:invoice_id, :item_id, :amount, :description)");
 		$insert->bindParam(":invoice_id",	$invoice_id, PDO::PARAM_INT);
 
 		for($x=0;$x<count($item_id);$x++)
 		{
-			$insert->bindParam(":item_id",	$item_id[$x], PDO::PARAM_INT);
-			$insert->bindParam(":amount",	$amount[$x], PDO::PARAM_INT);
+			$insert->bindParam(":item_id",		$item_id[$x], PDO::PARAM_INT);
+			$insert->bindParam(":amount",		$amount[$x], PDO::PARAM_INT);
+			$insert->bindParam(":description",	$description[$x], PDO::PARAM_STR);
 			$insert->execute();
 		}
 
@@ -113,7 +114,7 @@ class invoice
 	{
 		$db		= impeesaDB::getConnection();
 		
-		$result	= $db->prepare("SELECT invoice.item_id, invoice.amount, item.cost, item.name, item.description
+		$result	= $db->prepare("SELECT invoice.item_id, invoice.amount, item.cost, item.name, item.description as default_description, invoice.description
 								FROM invoice_item as invoice
 								INNER JOIN item as item
 								WHERE invoice.invoice_id = :invoice_id
@@ -125,6 +126,10 @@ class invoice
 		$x		= 1;
 		while($row = $result->fetch())
 		{
+			if(empty($row['description']))
+			{
+				$row['description']	= $row['default_description'];
+			}
 			$return[]	= array(
 								$x,
 								$row['amount'].' '.$row['name'],
