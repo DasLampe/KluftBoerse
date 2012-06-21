@@ -3,7 +3,7 @@ if(!isset($param[1]) || $param[1] == "")
 {
 ?>
 	<h1>Neue Rechnung</h1>
-	<form id="new_invoice" action="<?=LINK_MAIN; ?>new_invoice" method="post" class="yform">
+	<form id="new_invoice" class="ym-form ym-full" action="<?=LINK_MAIN; ?>new_invoice" method="post" class="yform">
 		<fieldset>
 			<legend>Kunde</legend>
 			<div class="type-select">
@@ -19,7 +19,7 @@ if(!isset($param[1]) || $param[1] == "")
 			<legend>Tätigkeiten</legend>
 			<a href="#" id="show_items_select">Tätigkeit hinzufügen</a>
 			<div id="items_select" style="display: none;">
-				<ul>
+				<ul class="ym-vlist">
 					<?= items::items2list(); ?>
 				</ul>
 			</div>
@@ -45,7 +45,7 @@ if(!isset($param[1]) || $param[1] == "")
 				</tfoot>
 			</table>
 		</fieldset>
-		<div class="type-button">
+		<div class="ym-fbox-button">
 			<input type="submit" name="submit" value="Rechnung schreiben" />
 		</div>
 	</form>
@@ -64,7 +64,7 @@ elseif($param[1] == "item_info")
 		<td></td>
 		<td><input type="hidden" name="item_id[]" value="<?= $items['id'] ?>" /><input type="text" name="amount[]" value="1" /></td>
 		<td><?= $items['name']; ?></td>
-		<td><textarea name="description[]" rows="2" cols="35"><?= nl2br($items['description']); ?></textarea></td>
+		<td><div class="ym-fbox-text"><textarea name="description[]" cols="70" rows="7"><?= $items['description']; ?></textarea></div></td>
 		<td><?= $items['cost']; ?>€ <input type="hidden" name="cost[]" value="<?=$items['cost']; ?>" /></td>
 		<td><?= $items['cost']; ?>€</td>
 	</tr>
@@ -72,7 +72,7 @@ elseif($param[1] == "item_info")
 }
 elseif($param[1] == "submit")
 {
-	if(invoice::insert_invoice($_POST['client'], $_POST['item_id'], $_POST['amount'], $_POST['description') === true)
+	if(invoice::insert_invoice($_POST['client'], $_POST['item_id'], $_POST['amount'], $_POST['description']) === true)
 	{
 		echo "Rechnung erfolgreich gespeichert!";
 	}

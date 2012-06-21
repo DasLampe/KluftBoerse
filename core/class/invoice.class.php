@@ -13,8 +13,9 @@ class invoice
 								(client_id, invoice_date)
 								VALUES
 								(:client_id, :invoice_date)");
+		$timestamp = time();
 		$insert->bindParam(":client_id",	$client_id, PDO::PARAM_INT);
-		$insert->bindParam(":invoice_date",	time(), PDO::PARAM_INT);
+		$insert->bindParam(":invoice_date",	$timestamp, PDO::PARAM_INT);
 		$insert->execute();
 
 
@@ -72,11 +73,11 @@ class invoice
 		}
 		return sprintf("%.2f",$return);
 	}
-	
+
 	public static function get_gain_last_time($timestamp_start, $timestamp_end)
 	{
 		$db		= impeesaDB::getConnection();
-		
+
 		$result = $db->prepare("SELECT invoice.item_id, invoice.amount, item.cost
 										FROM invoice_item as invoice
 										INNER JOIN item as item
@@ -88,7 +89,7 @@ class invoice
 		$result->bindParam(":time_start",	$timestamp_start, PDO::PARAM_INT);
 		$result->bindParam(":time_end",		$timestamp_end, PDO::PARAM_INT);
 		$result->execute();
-		
+
 		$return = 0;
 		while($row = $result->fetch())
 		{
@@ -96,24 +97,24 @@ class invoice
 		}
 		return sprintf("%.2f",$return);
 	}
-	
+
 	public static function get_client($invoice_id)
 	{
 		$db		= impeesaDB::getConnection();
-		
+
 		$result	= $db->prepare("SELECT client_id
 								FROM invoice
 								WHERE invoice_id = :invoice_id");
 		$result->execute(array(":invoice_id" => $invoice_id));
-		
+
 		$row	= $result->fetch();
 		return $row['client_id'];
 	}
-	
+
 	public static function get_invoice($invoice_id)
 	{
 		$db		= impeesaDB::getConnection();
-		
+
 		$result	= $db->prepare("SELECT invoice.item_id, invoice.amount, item.cost, item.name, item.description as default_description, invoice.description
 								FROM invoice_item as invoice
 								INNER JOIN item as item
@@ -121,7 +122,7 @@ class invoice
 									AND item.id = invoice.item_id");
 		$result->bindParam(":invoice_id",	$invoice_id, PDO::PARAM_INT);
 		$result->execute();
-		
+
 		$return	= array();
 		$x		= 1;
 		while($row = $result->fetch())
@@ -139,14 +140,14 @@ class invoice
 								);
 			$x++;
 		}
-		
+
 		return $return;
 	}
-	
+
 	public static function get_invoice_date($invoice_id)
 	{
 		$db			= ImpeesaDb::getConnection();
-		
+
 		$result 	= $db->prepare("SELECT invoice_date
 									FROM invoice
 									WHERE invoice_id = :invoice_id");
@@ -154,5 +155,36 @@ class invoice
 		$result->execute();
 		$row		= $result->fetch();
 		return $row['invoice_date'];
+	}
+	
+	public static function get_cleared($invoice_id)
+	{
+		$db			= ImpeesaDb::getConnection();
+		$result		= $db->prepare("SELECT cleared
+									FROM invoice
+									WHERE invoice_id = :invoice_id");
+		$result->bindParam(":invoice_id", $invoice_id);
+		$result->execute();
+		$row		= $result->fetch();
+		
+		if($row['cleared'] == 1)
+		{
+			return "Bezahlt";
+		}
+		else
+		{
+			return "Offen";
+		}
+	}
+	
+	public static function set_cleared($invoice_id)
+	{
+		$db			= ImpeesaDb::getConnection();
+		$result		= $db->prepare("UPDATE invoice SET
+									cleared = 1
+									WHERE invoice_id = :invoice_id");
+		$result->bindParam(":invoice_id", $invoice_id);
+		$result->execute();
+		return true;
 	}
 }

@@ -11,15 +11,11 @@
 
 /* import core styles | Basis-Stylesheets einbinden */
 @import url(../../yaml/core/base.css);
+@import url(../../yaml/screen/screen-PAGE-layout.css);
+@import url(../../yaml/screen/typography.css);
 
 /* import screen layout | Screen-Layout einbinden */
-@import url(../../yaml/screen/forms.css);
-@import url(../../yaml/navigation/nav_slidingdoor.css);
-@import url(screen/basemod.css);
-@import url(../../yaml/screen/content_default.css);
-@import url(screen/content.css);
-@import url(screen/col3.css);
+@import url(../../yaml/forms/gray-theme.css);
+@import url(../../yaml/navigation/hlist.css);
+@import url(../../yaml/navigation/vlist.css);
 @import url(ui-lightness/jquery-ui-1.8.16.custom.css);
-
-/* import print layout | Druck-Layout einbinden */
-@import url(../../yaml/print/print_draft.css);

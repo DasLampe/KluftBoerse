@@ -33,7 +33,7 @@ class items
 		$return	= "";
 		while($row = $result->fetch())
 		{
-			$return .= '<li id="item_'.$row["id"].'">'.nl2br($row["description"]).'</li>';
+			$return .= '<li class="box" id="item_'.$row["id"].'">'.nl2br($row["description"]).'</li>';
 		}
 		return $return;
 	}

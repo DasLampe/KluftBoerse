@@ -10,11 +10,13 @@ if(!isset($param[1]) || $param[1] == "")
 	$result 	= $db->query("SELECT id, cost, name, description
 							FROM item");
 ?>
-<table>
+<table class="bordertable">
+	<thead>
 	<tr>
 		<th>Beschreibung</th>
 		<th>Kosten</th>
 	</tr>
+	</thead>
 <?php
 	while($row	= $result->fetch())
 	{

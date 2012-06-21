@@ -6,54 +6,48 @@
 <!-- add your meta tags here -->
 <?php include_once(PATH_PAGES."html_head.php"); ?>
 <link href="<?= LINK_TPL; ?>css/my_layout.css" rel="stylesheet" type="text/css" />
-<!--[if lte IE 7]>
-<link href="<?= LINK_TPL; ?>css/patches/patch_my_layout.css" rel="stylesheet" type="text/css" />
-<![endif]-->
 </head>
 <body>
-  <div class="page_margins">
-    <div class="page">
-      <div id="header">
-        <div id="topnav">
-          <!-- start: skip link navigation -->
-          <a class="skip" title="skip link" href="#navigation">Skip to the navigation</a><span class="hideme">.</span>
-          <a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
-        </div>
-        <h1>NixMuss Rechnungen</h1>
-      </div>
-      <div id="nav">
-        <!-- skiplink anchor: navigation -->
-        <a id="navigation" name="navigation"></a>
-        <div class="hlist">
-          <!-- main navigation: horizontal list -->
+		<div class="ym-skiplinks">
+			<a class="skip" title="ym-skip" href="#navigation">Skip to the navigation</a><span class="hideme">.</span>
+			<a class="skip" title="ym-skip" href="#content">Skip to the content</a><span class="hideme">.</span>
+		</div>
+<div class="ym-wrapper">
+	<div class="ym-wbox">
+	<header>
+		<h1>NixMuss Rechnungen</h1>
+	</header>
+	<nav id="nav">
+		<a id="navigation" name="navigation"></a>
+		<div class="ym-hlist">
 			<?php
 				include_once(PATH_PAGES."menu.php");
 			?>
-        </div>
-      </div>
-      <div id="main">
-        <div id="col1">
-		  <div id="col1_content" class="clearfix">
-			<div id="dialog-action"></div>
-            <?php
-            	include_once(PATH_PAGES.$page.".php");
-            ?>
-          </div>
-        </div>
-        <div id="col3">
-          <div id="col3_content" class="clearfix">
-            <?php
-            	include_once(PATH_PAGES."col3.php");
-            ?>
-          </div>
-          <!-- IE Column Clearing -->
-          <div id="ie_clearing"> &#160; </div>
-        </div>
-      </div>
-      <!-- begin: #footer -->
-      <div id="footer">Layout based on <a href="http://www.yaml.de/">YAML</a>
-      </div>
-    </div>
-  </div>
+		</div>
+	</div>
+	<div id="main">
+		<div class="ym-wbox">
+			<section class="ym-grid">
+				<div class="ym-g20 ym-gl box">
+					<div class="ym-gbox-left">
+						<?php
+							include_once(PATH_PAGES."col3.php");
+						?>
+					</div>
+				</div>
+				<div class="ym-g75 ym-gr content">
+					<div class="ym-gbox-right ym-clearfix">
+						<div id="dialog-action"></div>
+						<?php
+							include_once(PATH_PAGES.$page.".php");
+						?>
+					</div>
+				</div>
+			</section>
+		</div>
+		
+		<div id="footer">Layout based on <a href="http://www.yaml.de/">YAML</a></div>
+	</div>
+</div>
 </body>
 </html>

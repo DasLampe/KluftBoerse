@@ -20,13 +20,28 @@ if(!isset($param[1]) || $param[1] == "")
 	{
 		$invoice	= invoice::get_invoice_by_client($row['id']);
 ?>
-	<div class="client">
-		<h2><?= $row['name']; ?></h2>
-		<h3>Adresse:</h3>
-			<address><?= nl2br($row['address']); ?></address>
-		<h3>Letzte Rechnung:</h3>
-			<p><?= date("d.m.Y", $invoice['invoice_date']); ?></p>
+<div class="box info">
+	<h2><?= $row['name']; ?></h2>
+	<div class="ym-grid">
+		<div class="ym-g33 ym-gl">
+			<div class="ym-gbox-left">
+				<h3>Adresse</h3><br/>
+				<address><?= nl2br($row['address']); ?></address>
+			</div>
+		</div>
+		<div class="ym-g33 ym-gl">
+			<div class="ym-gbox-left">
+				<h3>Letzte Rechnung</h3>
+				<p><?= date("d.m.Y", $invoice['invoice_date']); ?></p>
+			</div>
+		</div>
+		<div class="ym-g33 ym-gr">
+			<div class="ym-gbox-right">
+				<h3>Umsatz</h3>
+			</div>
+		</div>
 	</div>
+</div>
 <?php
 	}
 }
