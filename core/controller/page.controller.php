@@ -20,7 +20,7 @@ class pageController
 		{
 				if(file_exists(PATH_APP.$this->param[0]) && is_dir(PATH_APP.$this->param[0]))
 				{ //if dir exists
-					save_include(PATH_APP.$this->param[0].'/controller.php');
+					exception_include(PATH_APP.$this->param[0].'/controller.php');
 					$controller	= ucfirst($this->param[0]).'Controller';
 					$controller	= new $controller($this->param);
 				}

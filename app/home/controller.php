@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------+
 class HomeController extends AbstractController {
 	public function factoryController() {
-		return "Hallo";
+		return $this->view->Example();
 	}
 }
 ?>
