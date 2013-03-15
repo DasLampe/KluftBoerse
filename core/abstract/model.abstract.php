@@ -10,6 +10,6 @@ abstract class AbstractModel {
 	
 	public function __construct()
 	{
-		$this->db	= Db::getConnection();
+		$this->db	= ramverkDB::getConnection();
 	}
 }
