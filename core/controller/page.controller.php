@@ -29,7 +29,14 @@ class pageController
 				}
 
 				$page_content	= $controller->factoryController();
-				$this->tpl->vars("page_content", $page_content);
+				
+				if($this->isContentType() == true) {
+					echo $page_content;
+					exit();
+				}
+				else {
+					$this->tpl->vars("page_content", $page_content);
+				}
 		}
 		catch(Exception $e)
 		{
@@ -54,5 +61,17 @@ class pageController
 		$this->tpl->vars("css_files",		$this->tpl->getCss());
 		
 		echo $this->tpl->load("layout");
+	}
+	
+	private function isContentType() {
+		foreach(headers_list() as $header) {
+			if(preg_match("/^Content-Type:/i", $header)) {
+				if(!preg_match("/^Content-Type: text\/(html|plain)/i", $header)) {
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
 	}
 }
