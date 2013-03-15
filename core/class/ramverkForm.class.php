@@ -13,14 +13,14 @@ class ramverkForm {
 		$this->error_msg	= array();
 	}
 	
-	public function GetForm(array $fields, $action, $method="post", $form_class="form")
+	public function GetForm(array $fields, $action, $method="post", $form_class="form-horizontal")
 	{
 		$this->tpl->vars("form_class",	$form_class);
 		$this->tpl->vars("fields",		$this->GetFormFields($fields));
 		$this->tpl->vars("action",		$action);
 		$this->tpl->vars("method",		$method);
 		$this->tpl->vars("error_msg",	$this->GetErrorMsg());
-		return $this->tpl->load("form");
+		return $this->tpl->load("form", PATH_MAIN."template/form/");
 	}
 	
 	public function SetErrorMsg($msg)
@@ -134,10 +134,10 @@ class ramverkForm {
 		foreach($this->error_msg as $msg)
 		{
 			$this->tpl->vars("message", 	$msg);
-			$return	.= $this->tpl->load("_form_error_msg");
+			$return	.= $this->tpl->load("_form_error_msg", PATH_MAIN."template/form/");
 		}
 		$this->tpl->vars("error_message",		$return);
-		return $this->tpl->load("_form_error");
+		return $this->tpl->load("_form_error", PATH_MAIN."template/form/");
 	}
 	
 	private function GetFormFields(array $fields)
@@ -167,7 +167,7 @@ class ramverkForm {
 				
 				//redefine label
 				$this->tpl->vars("label",		$field[1]);
-				return $this->tpl->load("_form_fieldset");
+				return $this->tpl->load("_form_fieldset", PATH_MAIN."template/form/");
 				break;
 			case 'select':
 				$this->tpl->vars("fields", $this->GetFormFields($field[3]));
@@ -175,7 +175,7 @@ class ramverkForm {
 				//redefine some vars
 				$this->tpl->vars("label",		$field[1]);
 				$this->tpl->vars("name",		$field[2]);
-				return $this->tpl->load("_form_select");
+				return $this->tpl->load("_form_select", PATH_MAIN."template/form/");
 				break;
 			case 'option':
 				//redefine some vars
@@ -183,39 +183,43 @@ class ramverkForm {
 				$this->tpl->vars("disabled",	$this->IsDisabledField($field[3]));
 				$this->tpl->vars("selected",	$this->IsSelectedField($field[4]));
 				
-				return $this->tpl->load("_form_option");
+				return $this->tpl->load("_form_option", PATH_MAIN."template/form/");
 				break;
 			case 'checkbox':
 				$this->tpl->vars("checked",		$this->IsCheckedField($field[5]));
-				return $this->tpl->load("_form_checkbox");
+				return $this->tpl->load("_form_checkbox", PATH_MAIN."template/form/");
 				break;
 			case 'text':
-				return $this->tpl->load("_form_text");
+				return $this->tpl->load("_form_text", PATH_MAIN."template/form/");
+				break;
+			case 'number':
+				$this->tpl->vars("max_number",	$field[4]);
+				return $this->tpl->load("_form_number", PATH_MAIN."template/form/");
 				break;
 			case 'email':
-				return $this->tpl->load("_form_email");
+				return $this->tpl->load("_form_email", PATH_MAIN."template/form/");
 				break;
 			case 'year':
 				$this->tpl->vars("max_number",	"4");
-				return $this->tpl->load("_form_number");
+				return $this->tpl->load("_form_number", PATH_MAIN."template/form/");
 				break;
 			case 'time':
-				return $this->tpl->load("_form_time");
+				return $this->tpl->load("_form_time", PATH_MAIN."template/form/");
 				break;
 			case 'static':
-				return $this->tpl->load("_form_static");
+				return $this->tpl->load("_form_static", PATH_MAIN."template/form/");
 				break;
 			case 'password':
-				return $this->tpl->load("_form_pass");
+				return $this->tpl->load("_form_pass", PATH_MAIN."template/form/");
 				break;
 			case 'hidden':
-				return $this->tpl->load("_form_hidden");
+				return $this->tpl->load("_form_hidden", PATH_MAIN."template/form/");
 				break;
 			case 'textarea':
-				return $this->tpl->load("_form_textarea");
+				return $this->tpl->load("_form_textarea", PATH_MAIN."template/form/");
 				break;
 			case 'submit':
-				return $this->tpl->load("_form_submit");
+				return $this->tpl->load("_form_submit", PATH_MAIN."template/form/");
 				break;
 		}
 	}
