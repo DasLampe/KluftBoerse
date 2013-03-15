@@ -22,7 +22,7 @@ class ramverkDb {
 		{
 			try
 			{
-				self::$db	= new PDO("mysql:host=".MYSQL_HOST.";dbname=".MYSQL_DB, MYSQL_USER, MYSQL_PASS);
+				self::$db	= new PDO("mysql:host=".MYSQL_HOST.";dbname=".MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD);
 				if($_SERVER['HTTP_HOST'] == "localhost")
 				{
 					self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );

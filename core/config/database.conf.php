@@ -8,3 +8,5 @@ define("MYSQL_DATABASE",	"ramverk");
 define("MYSQL_USER",		"root");
 define("MYSQL_PASSWORD",	"");
 define("MYSQL_PREFIX",		"");
+define("MYSQL_FETCH_MODE",	PDO::FETCH_ASSOC);
+
