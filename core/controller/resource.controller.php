@@ -33,21 +33,8 @@ class resourceController
 				header ("expires: " . gmdate ("D, d M Y H:i:s", time() + 2592000) . " GMT");
 				
 				$content		= file_get_contents(PATH_MAIN.$file);
-				 
-				//Replace placeholder
-				$search		= array(
-					"{LINK_TPL}",
-					"{LINK_LIB}",
-					"{LINK_MAIN}",
-					"{CURRENT_PAGE}"
-				);
-				$replace		= array(
-					LINK_TPL,
-					LINK_LIB,
-					LINK_MAIN,
-					CURRENT_PAGE,
-				);
-				$content		= str_replace($search, $replace, $content);
+				
+				$content		= str_replace("{LINK_MAIN}", LINK_MAIN, $content);
 				
 				/**
 				* Remove whitespace characters & comments (in CSS files)
