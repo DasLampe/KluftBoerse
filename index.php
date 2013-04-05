@@ -3,6 +3,7 @@
 // | Copyright (c) 2013 DasLampe <daslampe@lano-crew.org> |
 // | Encoding:  UTF-8 |
 // +----------------------------------------------------------------------+
+header('Content-Type: text/html; charset=utf-8');
 include_once(dirname(__FILE__)."/core/inc.php"); //Include core files
 
 $param = (!empty($_GET['param'])) ? explode("/", $_GET['param']) : array("home");

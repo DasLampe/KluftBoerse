@@ -9,6 +9,18 @@
 </head>
 <body>
 	<div class="container">
+		<div class="masthead">
+			<ul class="nav nav-pills pull-right">
+				<li><a href="<?= LINK_MAIN; ?>">Infos</a></li>
+				<li><a href="<?= LINK_MAIN; ?>offers/searching/">Gesuche</a></li>
+				<li><a href="<?= LINK_MAIN; ?>offers/selling/">Verkäufe</a></li>
+			</ul>
+			<h1 class="muted">KluftBörse</h1>
+		</div>
+	</div>
+	
+	
+	<div class="container">
 		{page_content}
 	</div>
 </body>
