@@ -12,11 +12,17 @@ class HomeView extends AbstractView {
 	}
 	
 	private function sellingView() {
-		return '<h3>Zu Verkaufen</h3>';
+		include_once(PATH_APP."offers/view.php");
+		$offers		= new offersView();
+		
+		return '<h3>Zu verkaufen</h3>'.$offers->showSelling();
 	}
 	
 	private function searchingView() {
-		return '<h3>Gesucht</h3>';
+		include_once(PATH_APP."offers/view.php");
+		$offers		= new offersView();
+		
+		return '<h3>Gesucht</h3>'.$offers->showSearching();
 	}
 }
 ?>

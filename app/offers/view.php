@@ -14,12 +14,12 @@ class offersView extends AbstractView {
 	
 	private function showList($values) {
 		$list	= "";
-		foreach($values as $selling) {
-			$this->tpl->vars("value",	$selling['description']);
+		foreach($values as $offer) {
+			$this->tpl->vars("value",	'<a href="'.LINK_MAIN.'offers/'.$offer['id'].'">'.$offer['description'].'</a>');
 			$list	.= $this->tpl->load("_li");
 		}
 		
-		$this->tpl->vars("list_style",	"unstyled");
+		$this->tpl->vars("list_style",	"");
 		$this->tpl->vars("li_list",		$list);
 		return $this->tpl->load("_ul");
 	}
