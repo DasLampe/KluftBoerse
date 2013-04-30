@@ -1,26 +1,20 @@
 <?php
-include_once(dirname(__FILE__)."/config/config.php");
+// +----------------------------------------------------------------------+
+// | Copyright (c) 2013 DasLampe <daslampe@lano-crew.org> |
+// | Encoding:  UTF-8 |
+// +----------------------------------------------------------------------+
+include_once(dirname(__FILE__)."/core/inc.php"); //Include core files
 
-$param	= explode("/", $_GET['param']);
+$param = (!empty($_GET['param'])) ? explode("/", $_GET['param']) : array("home");
 
-if(!isset($param[0]) || $param[0] == "")
+if($param[0] == "resource")
 {
-	$page	= "overview";
+	include_once(PATH_CORE."controller/resource.controller.php");
+	new resourceController($param);
 }
 else
 {
-	$page	= $param[0];
-}
-
-if($page == "print_invoice")
-{
-	include(PATH_PAGES.$page.".php");
-}
-elseif(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-{
-	include_once(PATH_PAGES.$page.".php");
-}
-else
-{
-	include_once(PATH_TPL."layout.php");
+	include_once(PATH_CORE."controller/page.controller.php");
+	$pageController	= new pageController($param);
+	$pageController->render();
 }
