@@ -6,6 +6,7 @@
 
 //config values
 include_once(dirname(__FILE__)."/config/pathcore.conf.php");
+include_once(PATH_CORE."config/base.conf.php");
 
 //abstract classes
 include_once(PATH_CORE."abstract/controller.abstract.php");
