@@ -11,7 +11,7 @@ class offersController extends AbstractController {
 		
 		if(is_numeric($this->param[1])) {
 			//if offer selected
-			return $this->showOffer($this->param[1]);
+			return $this->view->showOffer($this->param[1]);
 		}
 		
 		switch($this->param[1]) {

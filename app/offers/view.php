@@ -12,6 +12,19 @@ class offersView extends AbstractView {
 		return $this->showList($this->model->getAllSearching());
 	}
 	
+	public function showOffer($id) {
+		$data	= $this->model->getOffer($id);
+		
+		$this->tpl->vars("id",					$data['id']);
+		$this->tpl->vars("title",				$data['description']); //@TODO: Add new field in database
+		$this->tpl->vars("description",			$data['description']);
+		$this->tpl->vars("type",				$data['type']);
+		$this->tpl->vars("owner_givenname",		$data['owner_givenname']);
+		$this->tpl->vars("owner_familyname",	$data['owner_familyname']);
+		
+		return $this->tpl->load("_offer", PATH_APP."offers/template/");
+	}
+	
 	private function showList($values) {
 		$list	= "";
 		foreach($values as $offer) {
