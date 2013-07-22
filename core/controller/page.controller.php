@@ -24,6 +24,12 @@ class pageController
 					$controller	= ucfirst($this->param[0]).'Controller';
 					$controller	= new $controller($this->param);
 				}
+				elseif(file_exists(PATH_PLUGIN."ramverk".ucfirst($this->param[0])) && is_dir(PATH_PLUGIN."ramverk".ucfirst($this->param[0])))
+				{
+					exception_include(PATH_PLUGIN."ramverk".ucfirst($this->param[0]).'/controller.php');
+					$controller	= "ramverk".ucfirst($this->param[0]).'Controller';
+					$controller	= new $controller($this->param);
+				} 
 				else {
 					throw new Exception("Page not found");
 				}
