@@ -3,7 +3,8 @@
 // | Copyright (c) 2013 DasLampe <daslampe@lano-crew.org> |
 // | Encoding:  UTF-8 |
 // +----------------------------------------------------------------------+
-exception_include(dirname(__FILE__)."/config/app.conf.php")
+exception_include(dirname(__FILE__)."/config/app.conf.php");
+
 class ramverkFacebookModel extends AbstractModel {
 	private function getUser() {
 		$sth	= $this->db->query("SELECT id, access_token, expired, email, name
@@ -87,7 +88,7 @@ class ramverkFacebookModel extends AbstractModel {
 	}
 	
 	public function setAccessToken($userid) {
-		$token		= $this->getAccessToken($_GET['code');
+		$token		= $this->getAccessToken($_GET['code']);
 		$expired	= time()+5184000;
 		try {
 			$sth	= $this->db->prepare("UPDATE ".MYSQL_PREFIX."facebook_user SET
