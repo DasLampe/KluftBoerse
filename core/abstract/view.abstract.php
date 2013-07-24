@@ -9,10 +9,12 @@ abstract class AbstractView {
 	
 	public function __construct() {
 		try {
+			$rc = new ReflectionClass(get_class($this));
+			
 			$name			= str_replace('View', '', get_class($this));
 			$classname		= $name."Model";
 		
-			exception_include(PATH_APP.lcfirst($name)."/model.php");
+			exception_include(dirname($rc->getFileName())."/model.php");
 			$this->model	= new $classname();
 		} catch(Exception $e) {
 			ramverkLog::setWarning($e->getMessage(), __FILE__);
