@@ -20,21 +20,30 @@ class pageController
 		{
 				if(file_exists(PATH_APP.$this->param[0]) && is_dir(PATH_APP.$this->param[0]))
 				{ //if dir exists
-					exception_include(PATH_APP.$this->param[0].'/controller.php');
-					$controller	= ucfirst($this->param[0]).'Controller';
-					$controller	= new $controller($this->param);
+					if(file_exists(PATH_APP.$this->param[0]."/content.php")) {
+						$page_content	= file_get_contents(PATH_APP.$this->param[0]."/content.php");
+					}
+					else
+					{
+						exception_include(PATH_APP.$this->param[0].'/controller.php');
+						$controller	= ucfirst($this->param[0]).'Controller';
+						$controller	= new $controller($this->param);
+					}
 				}
 				elseif(file_exists(PATH_PLUGIN."ramverk".ucfirst($this->param[0])) && is_dir(PATH_PLUGIN."ramverk".ucfirst($this->param[0])))
 				{
 					exception_include(PATH_PLUGIN."ramverk".ucfirst($this->param[0]).'/controller.php');
 					$controller	= "ramverk".ucfirst($this->param[0]).'Controller';
 					$controller	= new $controller($this->param);
-				} 
+				}
 				else {
 					throw new Exception("Page not found");
 				}
-
-				$page_content	= $controller->factoryController();
+				
+				//if no static content
+				if(!isset($page_content)) {
+					$page_content	= $controller->factoryController();
+				}
 				
 				if($this->isContentType() == true) {
 					echo $page_content;
