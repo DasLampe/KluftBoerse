@@ -50,7 +50,8 @@ class pageController
 					exit();
 				}
 				else {
-					$this->tpl->vars("page_content", $page_content);
+					exception_include(PATH_CORE."helper/ramverkPostProcess.class.php");
+					$this->tpl->vars("page_content", ramverkPostProcess::protectEmail($page_content));
 				}
 		}
 		catch(Exception $e)
