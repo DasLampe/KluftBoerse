@@ -4,6 +4,6 @@
 // | Encoding:  UTF-8 |
 // +----------------------------------------------------------------------+
 ?>
-<div class="ym-fbox-button">
-	<input type="submit" class="ym-button" value="{label}" name="{name}" />
+<div class="form-actions">
+	<input type="submit" class="btn btn-primary" value="{label}" name="{name}" />
 </div>

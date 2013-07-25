@@ -1,0 +1,86 @@
+From e2855afbebe41f0ea2a2952e7d1c054ecb7464f6 Mon Sep 17 00:00:00 2001
+From: DasLampe <daslampe@lano-crew.org>
+Date: Thu, 25 Jul 2013 23:55:05 +0200
+Subject: [PATCH] FIXED: porting form template to bootstrap
+
+---
+ template/form/_form_fieldset.php | 2 +-
+ template/form/_form_submit.php   | 4 ++--
+ template/form/_form_text.php     | 4 ++--
+ template/form/_form_textarea.php | 4 ++--
+ template/form/form.php           | 2 +-
+ 5 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/template/form/_form_fieldset.php b/template/form/_form_fieldset.php
+index 38bdd2d..d8bc431 100644
+--- a/template/form/_form_fieldset.php
++++ b/template/form/_form_fieldset.php
+@@ -6,5 +6,5 @@
+ ?>
+ <fieldset>
+ 	<legend>{label}</legend>
+-	{fields}
++		{fields}
+ </fieldset>
+\ No newline at end of file
+diff --git a/template/form/_form_submit.php b/template/form/_form_submit.php
+index 79fc1db..b4bdb00 100644
+--- a/template/form/_form_submit.php
++++ b/template/form/_form_submit.php
+@@ -4,6 +4,6 @@
+ // | Encoding:  UTF-8 |
+ // +----------------------------------------------------------------------+
+ ?>
+-<div class="ym-fbox-button">
+-	<input type="submit" class="ym-button" value="{label}" name="{name}" />
++<div class="form-actions">
++	<input type="submit" class="btn btn-primary" value="{label}" name="{name}" />
+ </div>
+\ No newline at end of file
+diff --git a/template/form/_form_text.php b/template/form/_form_text.php
+index 8ab5f40..c977b7d 100644
+--- a/template/form/_form_text.php
++++ b/template/form/_form_text.php
+@@ -4,7 +4,7 @@
+ // | Encoding:  UTF-8 |
+ // +----------------------------------------------------------------------+
+ ?>
+-<div class="ym-fbox-text">
+-	<label for="{name}">{label}</label> 
++<label class="control-label" for="{name}">{label}</label> 
++<div class="controls">
+ 	<input type="text" name="{name}" value="{value}" {required}/>
+ </div>
+\ No newline at end of file
+diff --git a/template/form/_form_textarea.php b/template/form/_form_textarea.php
+index 94582f2..533c4f7 100644
+--- a/template/form/_form_textarea.php
++++ b/template/form/_form_textarea.php
+@@ -4,7 +4,7 @@
+ // | Encoding:  UTF-8 |
+ // +----------------------------------------------------------------------+
+ ?>
+-<div class="ym-fbox-text">
+-	<label for="{name}">{label}</label>
++<label class="controls-label" for="{name}">{label}</label>
++<div class="controls">
+ 	<textarea name="{name}" cols="30" rows="7" {required}>{value}</textarea>
+ </div>
+\ No newline at end of file
+diff --git a/template/form/form.php b/template/form/form.php
+index 6c900ae..1ca2ba9 100644
+--- a/template/form/form.php
++++ b/template/form/form.php
+@@ -4,7 +4,7 @@
+ // | Encoding:  UTF-8 |
+ // +----------------------------------------------------------------------+
+ ?>
+-<form class="ym-{form_class}" action="{action}" method="{method}">
++<form class="{form_class}" action="{action}" method="{method}">
+ 	{error_msg}
+ 	{fields}
+ </form>
+\ No newline at end of file
+-- 
+1.8.2.1
+
