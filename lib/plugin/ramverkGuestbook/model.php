@@ -3,11 +3,14 @@
 // | Copyright (c) 2013 DasLampe <daslampe@lano-crew.org> |
 // | Encoding:  UTF-8 |
 // +----------------------------------------------------------------------+
+exception_include(PATH_PLUGIN."ramverkGuestbook/config/app.conf.php");
+
 class ramverkGuestbookModel extends AbstractModel {
 	public function getAllEntries() {
 		$sth	= $this->db->query("SELECT content, name, created
 								FROM ".MYSQL_PREFIX."guestbook
-								WHERE activated = '1'");
+								WHERE activated = '1'
+								ORDER BY created DESC");
 		return $sth->fetchAll();
 	}
 	
@@ -20,7 +23,7 @@ class ramverkGuestbookModel extends AbstractModel {
 	public function activateEntry($id, $verify_code) {
 		try {
 			if($this->checkVerifyCode($id, $verify_code) === true) {
-				$sth	= $this->db->query("UPDATE ".MYSQL_PREFIX."guestbook SET
+				$sth	= $this->db->prepare("UPDATE ".MYSQL_PREFIX."guestbook SET
 											activated = '1'
 											WHERE id = :id");
 				$sth->bindValue(":id",	$id, PDO::PARAM_INT);
@@ -47,9 +50,9 @@ class ramverkGuestbookModel extends AbstractModel {
 			$sth->execute();
 			
 			if(GUESTBOOK_ACTIVATED == false) {
-				$activation_link 	= LINK_MAIN."guestbook/".$this->db->lastInsertId()."/".$verify_code;
-				$text	= str_replace(array("%link%", "%content%", "%name%"), array($activation_link,$content,$name), file_get_contents(PATH_PLUGIN."ramverkGuestbook/config/email_new_entry"));
-				ramverkEmail::sendMail(GUESTBOOK_EMAIL, $text);
+				$activation_link 	= LINK_MAIN."guestbook/activate/".$this->db->lastInsertId()."/".$verify_code;
+				$text	= str_replace(array("%link%", "%content%", "%name%", "%remove_delay%"), array($activation_link,$content,$name, GUESTBOOK_REMOVE_DELAY), file_get_contents(PATH_PLUGIN."ramverkGuestbook/config/email_new_entry"));
+				ramverkEmail::sendMail(GUESTBOOK_EMAIL, "Neuer Gästebuch Eintrag", $text);
 			}
 			return true;
 		} catch(Exception $e) {

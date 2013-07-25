@@ -12,7 +12,6 @@ class ramverkEmail {
 			$header		.= 'Reply-To: '.$to."\n";
 			$header		.= "X-Mailer: php";
 		
-			$to			= $email;
 			$subject	= "[".ucfirst(DOMAIN)."]".$subject;
 			$body		= nl2br($text);
 		
