@@ -14,6 +14,7 @@ include_once(PATH_CORE."abstract/model.abstract.php");
 include_once(PATH_CORE."abstract/view.abstract.php");
 
 //helper classes
+include_once(PATH_CORE."helper/ramverkEmail.class.php");
 include_once(PATH_CORE."helper/ramverkLog.class.php");
 include_once(PATH_CORE."helper/ramverkException.class.php");
 
