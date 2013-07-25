@@ -20,16 +20,20 @@ class ramverkFacebook {
 	
 	public function getUserConnection($userid) {
 		exception_include(PATH_CORE."class/ramverkDB.class.php");
-		$db	= ramverkDB::getConnection();
+		try {
+			$db	= ramverkDB::getConnection();
 		
-		$sth	= $db->prepare("SELECT access_token
-								FROM ".MYSQL_PREFIX."facebook_user
-								WHERE id = :userid");
-		$sth->bindValue(":userid",		$userid);
-		$sth->execute();
-		$user	= $sth->fetch();
+			$sth	= $db->prepare("SELECT access_token
+									FROM ".MYSQL_PREFIX."facebook_user
+									WHERE id = :userid");
+			$sth->bindValue(":userid",		$userid);
+			$sth->execute();
+			$user	= $sth->fetch();
 		
-		$this->facebook->setAccessToken($user['access_token']);
+			$this->facebook->setAccessToken($user['access_token']);
+		} catch(Exception $e) {
+			throw new ramverkException($e->getMsg(), $e->getCode(), $e);
+		}
 	}
 
 	
