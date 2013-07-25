@@ -4,7 +4,7 @@
 // | Encoding:  UTF-8 |
 // +----------------------------------------------------------------------+
 ?>
-<label class="control-label" for="{name}">{label}</label> 
-<div class="controls">
+<div class="ym-fbox-text">
+	<label for="{name}">{label}</label>
 	<input type="text" name="{name}" value="{value}" {required}/>
 </div>

@@ -4,7 +4,7 @@
 // | Encoding:  UTF-8 |
 // +----------------------------------------------------------------------+
 ?>
-<label class="controls-label" for="{name}">{label}</label>
-<div class="controls">
+<div class="ym-fbox-text">
+	<label for="{name}">{label}</label>
 	<textarea name="{name}" cols="30" rows="7" {required}>{value}</textarea>
 </div>

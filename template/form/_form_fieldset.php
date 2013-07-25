@@ -6,5 +6,5 @@
 ?>
 <fieldset>
 	<legend>{label}</legend>
-		{fields}
+	{fields}
 </fieldset>
