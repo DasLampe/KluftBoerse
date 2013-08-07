@@ -59,6 +59,17 @@ class pageController
 			$page_content	= $e->getMessage();
 			$this->tpl->vars("page_content", $page_content);
 		}
+		
+		//Info message
+		$layer	= ramverkNotification::getInstance();
+		$this->tpl->vars("ramverkNotification",			""); //init info_msg
+		$msg			= $layer->GetInfoMsg($_SESSION);
+		if(!empty($msg['msg']))
+		{
+			$this->tpl->vars("message",			$msg['msg']);
+			$this->tpl->vars("status",		$msg['status']);
+			$this->tpl->vars("ramverkNotification",		$this->tpl->load("_ramverkNotification"));
+		}
 
 		/**
 		 * Handle JSON

@@ -20,3 +20,6 @@ include_once(PATH_CORE."helper/ramverkException.class.php");
 
 //Libary
 include_once(PATH_CORE."lib/daslampe-alternate/alternate.inc.php");
+
+//Classes
+include_once(PATH_CORE."class/ramverkNotification.class.php");

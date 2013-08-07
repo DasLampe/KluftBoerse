@@ -4,6 +4,7 @@
 	<!-- Bootstrap -->
 	<link href="<?= LINK_MAIN; ?>template/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="<?= LINK_MAIN; ?>template/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="<?= LINK_MAIN; ?>template/css/style.css" rel="stylesheet">
 	{css_files}
 	
 	<script language="JavaScript" type="text/javascript" src="<?= LINK_MAIN; ?>template/lib/jquery/jquery.min.js"></script>
@@ -35,5 +36,6 @@
 	<div class="container">
 		{page_content}
 	</div>
+	{ramverkNotification}
 </body>
 </html>
