@@ -9,6 +9,7 @@
 	
 	<script language="JavaScript" type="text/javascript" src="<?= LINK_MAIN; ?>template/lib/jquery/jquery.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="<?= LINK_MAIN; ?>template/js/webtoolkit.base64.js"></script>
+	<script language="JavaScript" type="text/javascript" src="<?= LINK_MAIN; ?>core/helper/ramverkNotification/ramverkNotification.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$("a").each(function() {
