@@ -33,7 +33,7 @@ class ramverkNotification {
 		{
 			$_SESSION['info_msg']		= $msg;
 			$_SESSION['info_status']	= $status;
-			header("Location: ".$redirect);
+			header("Location: ".$redirection);
 			exit(); //Do not remove this! Elsewhere you can't see the infomessage after redirect!
 		}
 		return true;
