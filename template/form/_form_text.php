@@ -5,6 +5,6 @@
 // +----------------------------------------------------------------------+
 ?>
 <div class="ym-fbox-text">
-	<label for="{name}">{label}</label> 
+	<label for="{name}">{label}</label>
 	<input type="text" name="{name}" value="{value}" {required}/>
 </div>

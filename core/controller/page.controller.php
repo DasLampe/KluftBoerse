@@ -20,28 +20,55 @@ class pageController
 		{
 				if(file_exists(PATH_APP.$this->param[0]) && is_dir(PATH_APP.$this->param[0]))
 				{ //if dir exists
-					exception_include(PATH_APP.$this->param[0].'/controller.php');
-					$controller	= ucfirst($this->param[0]).'Controller';
+					if(file_exists(PATH_APP.$this->param[0]."/content.php")) {
+						$page_content	= file_get_contents(PATH_APP.$this->param[0]."/content.php");
+					}
+					else
+					{
+						exception_include(PATH_APP.$this->param[0].'/controller.php');
+						$controller	= ucfirst($this->param[0]).'Controller';
+						$controller	= new $controller($this->param);
+					}
+				}
+				elseif(file_exists(PATH_PLUGIN."ramverk".ucfirst($this->param[0])) && is_dir(PATH_PLUGIN."ramverk".ucfirst($this->param[0])))
+				{
+					exception_include(PATH_PLUGIN."ramverk".ucfirst($this->param[0]).'/controller.php');
+					$controller	= "ramverk".ucfirst($this->param[0]).'Controller';
 					$controller	= new $controller($this->param);
 				}
 				else {
 					throw new Exception("Page not found");
 				}
-
-				$page_content	= $controller->factoryController();
+				
+				//if no static content
+				if(!isset($page_content)) {
+					$page_content	= $controller->factoryController();
+				}
 				
 				if($this->isContentType() == true) {
 					echo $page_content;
 					exit();
 				}
 				else {
-					$this->tpl->vars("page_content", $page_content);
+					exception_include(PATH_CORE."helper/ramverkPostProcess.class.php");
+					$this->tpl->vars("page_content", ramverkPostProcess::protectEmail($page_content));
 				}
 		}
 		catch(Exception $e)
 		{
 			$page_content	= $e->getMessage();
 			$this->tpl->vars("page_content", $page_content);
+		}
+		
+		//Info message
+		$layer	= ramverkNotification::getInstance();
+		$this->tpl->vars("ramverkNotification",			""); //init info_msg
+		$msg			= $layer->getMsg($_SESSION);
+		if(!empty($msg['msg']))
+		{
+			$this->tpl->vars("message",			$msg['msg']);
+			$this->tpl->vars("status",		$msg['status']);
+			$this->tpl->vars("ramverkNotification",		$this->tpl->load("_ramverkNotification"));
 		}
 
 		/**

@@ -1,0 +1,32 @@
+#ramverkNotification_wrapper {
+	/** Hack for info message, to display centered **/
+	position: fixed;
+		bottom: 10px;
+	width: 100%;
+	z-index: 99999999;
+
+	#ramverkNotification_msg {
+		margin: 0 auto;
+		width: 500px;
+		border: 1px solid #000000;
+		padding: 15px 15px 15px 40px;
+		background-repeat: no-repeat;
+		background-position: center left;
+		
+		.success {
+			background-image: url({LINK_MAIN}template/img/success.png);
+		}
+
+		.error {
+			background-image: url({LINK_MAIN}template/img/error.png);
+		}
+
+		.waring {
+			background-image: url({LINK_MAIN}template/img/warning.png);
+		}
+
+		.info {
+			background-image: url({LINK_MAIN}template/img/info.png);
+		}
+	}
+}

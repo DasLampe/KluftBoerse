@@ -1,0 +1,65 @@
+From 5c0b58c0c9e8d80e50bfe024f77c440f34ad5de8 Mon Sep 17 00:00:00 2001
+From: DasLampe <daslampe@lano-crew.org>
+Date: Thu, 8 Aug 2013 02:48:39 +0200
+Subject: [PATCH] =?UTF-8?q?FIXED:=20notification.=20Some=20crazy=20bugs=20?=
+ =?UTF-8?q?=E2=80=A6=20why=20don't=20see=20in=20impeesa2=3F?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ core/config/base.conf.php                 | 11 +++++++++++
+ core/controller/page.controller.php       |  2 +-
+ core/helper/ramverkNotification.class.php |  2 +-
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/core/config/base.conf.php b/core/config/base.conf.php
+index a8931fd..4f32470 100644
+--- a/core/config/base.conf.php
++++ b/core/config/base.conf.php
+@@ -5,5 +5,16 @@
+ // +----------------------------------------------------------------------+
+ header('Content-Type: text/html; charset=utf-8');
+ 
++//Check if AJAX request.
++if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
++		strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == "xmlhttprequest")
++{
++	define("IS_AJAX", true);
++}
++else
++{
++	define("IS_AJAX", false);
++}
++
+ define("ADMIN_EMAIL",		"webmaster@example.com");
+ 
+diff --git a/core/controller/page.controller.php b/core/controller/page.controller.php
+index 003c8a5..a4056aa 100644
+--- a/core/controller/page.controller.php
++++ b/core/controller/page.controller.php
+@@ -75,7 +75,7 @@ class pageController
+ 		//Info message
+ 		$layer	= ramverkNotification::getInstance();
+ 		$this->tpl->vars("ramverkNotification",			""); //init info_msg
+-		$msg			= $layer->GetInfoMsg($_SESSION);
++		$msg			= $layer->getMsg($_SESSION);
+ 		if(!empty($msg['msg']))
+ 		{
+ 			$this->tpl->vars("message",			$msg['msg']);
+diff --git a/core/helper/ramverkNotification.class.php b/core/helper/ramverkNotification.class.php
+index ef771ab..a837769 100644
+--- a/core/helper/ramverkNotification.class.php
++++ b/core/helper/ramverkNotification.class.php
+@@ -33,7 +33,7 @@ class ramverkNotification {
+ 		{
+ 			$_SESSION['info_msg']		= $msg;
+ 			$_SESSION['info_status']	= $status;
+-			header("Location: ".$redirect);
++			header("Location: ".$redirection);
+ 			exit(); //Do not remove this! Elsewhere you can't see the infomessage after redirect!
+ 		}
+ 		return true;
+-- 
+1.8.2.1
+

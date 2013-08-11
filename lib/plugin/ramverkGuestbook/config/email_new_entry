@@ -1,0 +1,15 @@
+Hallo,
+
+%name% hat etwas in dein Gästebuch geschrieben:
+
+%content%
+
+Um den Beitrag zu aktivieren klicke bitte folgenden Link an:
+%link%
+
+Falls du den Link nicht anklickst, wird der Beitrag in %remove_delay% Tagen gelöscht.
+
+Viele Grüße,
+dein Admin.
+
+Mit freundlicher Unterstüzung des ramverk-Frameworks von @DasLampe (http://github.com/DasLampe)
